@@ -135,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 116899514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 991081288}
@@ -218,7 +218,7 @@ GameObject:
   m_Layer: 0
   m_Name: FollowTarget
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -335,6 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 621957167}
   - component: {fileID: 621957168}
+  - component: {fileID: 621957169}
   m_Layer: 0
   m_Name: CameraRotateOrigin
   m_TagString: Untagged
@@ -370,6 +371,18 @@ MonoBehaviour:
   sensitivity: 1
   reverseX: 1
   clampAngle: 60
+--- !u!114 &621957169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 621957166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f8ebae105b34aa795dd443a3735544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
 --- !u!1 &991081286
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +527,7 @@ GameObject:
   - component: {fileID: 1779848576}
   - component: {fileID: 1779848575}
   - component: {fileID: 1779848580}
+  - component: {fileID: 1779848581}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -534,7 +548,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1779848576
 BoxCollider:
@@ -617,14 +631,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 1
   constrainX:
-    active: 0
+    active: 1
     value: 0
   constrainY:
     active: 0
     value: 0
   constrainZ:
-    active: 0
+    active: 1
     value: 0
+--- !u!114 &1779848581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779848574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a89c6e86efc466ab66a826a14f9947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  QBPower: 50
 --- !u!1 &1965743815
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +674,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1965743815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 10}
+  m_LocalPosition: {x: 0, y: 1, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -675,7 +702,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1985726835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 621957167}
