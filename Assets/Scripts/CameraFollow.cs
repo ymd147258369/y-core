@@ -27,7 +27,22 @@ public class CameraFollow : MonoBehaviour
     {
         var nowPos = this.transform.position;
         var targetPos = cameraPositionTarget.transform.position;
-        this.transform.position = Vector3.Lerp(nowPos, targetPos, moveSpeed * Time.deltaTime);
+
+        //変更箇所　ここから
+        RaycastHit hit;
+        var from = lookTarget.transform.position;
+        var dir = targetPos - from;
+        var dis = Vector3.Distance(targetPos, from);
+        if (Physics.Raycast(from, dir, out hit, dis, ~(1 << LayerMask.NameToLayer("Player"))))
+        {
+            var avoidPos = hit.point - dir.normalized * 0.1f;
+            this.transform.position = avoidPos;
+        }
+        else
+        {
+            this.transform.position = Vector3.Lerp(nowPos, targetPos, moveSpeed * Time.deltaTime);
+        }
+        //ここまで
 
         var thisPos = this.transform.position;
         var followTargetPos = lookTarget.transform.position;
