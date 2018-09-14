@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     public float speed = 20;
     public float QBPower = 120;
+    public float JumpPower = 120;
     private Vector3 direction;
 
     void Awake()
@@ -49,9 +50,15 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             rb.AddForce(direction * QBPower, ForceMode.Impulse);
+        }
+
+        // ジャンプ
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
         }
     }
 }
