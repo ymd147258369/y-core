@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour
     void Awake()
     {
         lookTarget = GameObject.Find("CameraRotateOrigin").gameObject;
-        cameraPositionTarget = lookTarget.transform.FindChild("CameraPositionTarget").gameObject;
+        cameraPositionTarget = lookTarget.transform.Find("CameraPositionTarget").gameObject;
     }
 
     // Use this for initialization

@@ -14,7 +14,7 @@ public class CameraRotate : MonoBehaviour
 
     void Awake()
     {
-        followTarget = GameObject.FindGameObjectWithTag("Player").transform.FindChild("FollowTarget").gameObject; ;
+        followTarget = GameObject.FindGameObjectWithTag("Player").transform.Find("FollowTarget").gameObject; ;
     }
 
 

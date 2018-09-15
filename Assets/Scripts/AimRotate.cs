@@ -16,7 +16,7 @@ public class AimRotate : MonoBehaviour
     void Awake()
     {
         //サブ照準が存在するときだけメイン照準情報を取得
-        mainAimObj = subAimObj != null ? this.transform.FindChild("MainAim").gameObject : null;
+        mainAimObj = subAimObj != null ? this.transform.Find("MainAim").gameObject : null;
     }
 
     // Update is called once per frame
