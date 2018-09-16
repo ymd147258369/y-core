@@ -10,12 +10,16 @@ public class PlayerMove : MonoBehaviour
     public float speed = 20;
     public float QBPower = 120;
     public float JumpPower = 120;
+    public float AddForceGravity = 100; // (A)dd(F)orce(G)ravity -> AFG
+    public float StartAFGPositionDt = -1;
     private Vector3 direction;
     private Vector3 forceFowerd;
     private Vector3 forceRight;
 
     private bool quickBoost = false;
     private bool jump = false;
+
+    private Vector3 BeforPosition = Vector3.zero;
 
     void Awake()
     {
@@ -77,6 +81,9 @@ public class PlayerMove : MonoBehaviour
             jump = false;
             rb.AddForce(JumpPower * Vector3.up * Time.deltaTime, ForceMode.Impulse);
         }
+
+        // 落下速度を上げるために追加で下方向への力を加える
+        if (!rb.velocity.y.Equals(0) && (BeforPosition.y - this.transform.position.y) > StartAFGPositionDt)         {             rb.AddForce(Vector3.down * AddForceGravity, ForceMode.Acceleration);         }         BeforPosition.x = this.transform.position.x;         BeforPosition.y = this.transform.position.y;         BeforPosition.z = this.transform.position.z; 
     }
 
     void Update()
