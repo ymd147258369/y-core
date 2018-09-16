@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     public float speed = 20;
     public float QBPower = 120;
     public float JumpPower = 120;
+    public float AddForceGravity = 100;
     private Vector3 direction;
     private Vector3 forceFowerd;
     private Vector3 forceRight;
@@ -77,6 +78,9 @@ public class PlayerMove : MonoBehaviour
             jump = false;
             rb.AddForce(JumpPower * Vector3.up * Time.deltaTime, ForceMode.Impulse);
         }
+
+        // 落下速度を上げるために追加で下方向への力を加える
+        rb.AddForce(Vector3.down * AddForceGravity, ForceMode.Acceleration);
     }
 
     void Update()
