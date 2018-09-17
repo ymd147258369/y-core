@@ -12,12 +12,15 @@ public class PlayerMove : MonoBehaviour
     public float JumpPower = 120;
     public float AddForceGravity = 100; // (A)dd(F)orce(G)ravity -> AFG
     public float StartAFGPositionDt = -1;
+    public float BoostPower = 20;
+    public float HoverPower = 250;
     private Vector3 direction;
     private Vector3 forceFowerd;
     private Vector3 forceRight;
 
     private bool quickBoost = false;
     private bool jump = false;
+    private bool boost = false;
 
     private Vector3 BeforPosition = Vector3.zero;
 
@@ -28,8 +31,18 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        var forward = this.transform.TransformDirection(Vector3.forward) * speed * Time.deltaTime;
-        var right = this.transform.TransformDirection(Vector3.right) * speed * Time.deltaTime;
+        // 水平移動(X,Z)に加える力を計算
+        float power;
+        if (boost)
+        {
+            power = speed + BoostPower;
+        }
+        else
+        {
+            power = speed;
+        }
+        Vector3 forward = this.transform.TransformDirection(Vector3.forward) * power * Time.deltaTime;
+        Vector3 right = this.transform.TransformDirection(Vector3.right) * power * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -55,7 +68,6 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(-right, ForceMode.VelocityChange);
             direction = -right;
         }
-
 
         // 移動の物理演算
         if (forceFowerd != Vector3.zero)
@@ -83,7 +95,19 @@ public class PlayerMove : MonoBehaviour
         }
 
         // 落下速度を上げるために追加で下方向への力を加える
-        if (!rb.velocity.y.Equals(0) && (BeforPosition.y - this.transform.position.y) > StartAFGPositionDt)         {             rb.AddForce(Vector3.down * AddForceGravity, ForceMode.Acceleration);         }         BeforPosition.x = this.transform.position.x;         BeforPosition.y = this.transform.position.y;         BeforPosition.z = this.transform.position.z; 
+        // - 落下し始めに下方向への力を加える
+        // - ブースト中は上方向へ加える
+        if(boost)
+        {
+            rb.AddForce(Vector3.up * HoverPower * Time.deltaTime, ForceMode.Acceleration);
+        }
+        else 
+        {
+            if (!rb.velocity.y.Equals(0) && (BeforPosition.y - this.transform.position.y) > StartAFGPositionDt)
+            {
+                rb.AddForce(Vector3.down * AddForceGravity, ForceMode.Acceleration);
+            }
+        }         BeforPosition.x = this.transform.position.x;         BeforPosition.y = this.transform.position.y;         BeforPosition.z = this.transform.position.z; 
     }
 
     void Update()
@@ -140,5 +164,12 @@ public class PlayerMove : MonoBehaviour
         {
             rb.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
         }
+
+        // ブースト
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            boost = !boost;
+        }
+        
     }
 }

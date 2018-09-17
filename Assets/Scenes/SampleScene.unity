@@ -654,6 +654,9 @@ MonoBehaviour:
   QBPower: 50
   JumpPower: 30
   AddForceGravity: 75
+  StartAFGPositionDt: -1
+  BoostPower: 20
+  HoverPower: 250
 --- !u!1 &1965743815
 GameObject:
   m_ObjectHideFlags: 0
