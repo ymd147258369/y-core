@@ -41,43 +41,15 @@ public class PlayerMove : MonoBehaviour
         {
             power = speed;
         }
-        Vector3 forward = this.transform.TransformDirection(Vector3.forward) * power * Time.deltaTime;
-        Vector3 right = this.transform.TransformDirection(Vector3.right) * power * Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.AddForce(forward, ForceMode.VelocityChange);
-            direction = forward;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            rb.AddForce(-forward, ForceMode.VelocityChange);
-            direction = -forward;
-        }
-        else
-        {
-            direction = forward;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddForce(right, ForceMode.VelocityChange);
-            direction = right;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddForce(-right, ForceMode.VelocityChange);
-            direction = -right;
-        }
 
         // 移動の物理演算
         if (forceFowerd != Vector3.zero)
         {
-            rb.AddForce(forceFowerd * speed * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(forceFowerd * power * Time.deltaTime, ForceMode.VelocityChange);
         }
-
         if (forceRight != Vector3.zero)
         {
-            rb.AddForce(forceRight * speed * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(forceRight * power * Time.deltaTime, ForceMode.VelocityChange);
         }
 
         // クイックブーストの物理演算
@@ -90,8 +62,8 @@ public class PlayerMove : MonoBehaviour
         // ジャンプの物理演算
         if (jump)
         {
+            rb.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
             jump = false;
-            rb.AddForce(JumpPower * Vector3.up * Time.deltaTime, ForceMode.Impulse);
         }
 
         // 落下速度を上げるために追加で下方向への力を加える
@@ -152,17 +124,6 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            rb.AddForce(direction * QBPower, ForceMode.Impulse);
-        }
-
-        // ジャンプ
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
         }
 
         // ブースト
